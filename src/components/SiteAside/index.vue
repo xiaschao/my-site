@@ -30,6 +30,7 @@ export default {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  padding: 15px 0;
   .title {
     color: #fff;
     font-size: 16px;

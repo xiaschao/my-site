@@ -1,15 +1,17 @@
 <template>
   <div class="menu-container">
-    <a
-      :href="item.url"
+    <router-link
       v-for="(item, index) in menuData"
+      :to="{ name: item.name }"
       :key="index"
       class="menu-list"
-      :class="{ selected: isSelected(item) }"
+      :exact="item.exact"
+      active-class="selected"
+      exact-active-class=""
     >
       <Icon :type="item.iconType" />
       <span>{{ item.text }}</span>
-    </a>
+    </router-link>
   </div>
 </template>
 
@@ -22,24 +24,13 @@ export default {
   data() {
     return {
       menuData: [
-        { url: '/', iconType: 'home', text: '首页' },
-        { url: '/blog', iconType: 'blog', text: '文章', isStartsWith: true },
-        { url: '/about', iconType: 'info', text: '关于我' },
-        { url: '/project', iconType: 'code', text: '项目&效果' },
-        { url: '/message', iconType: 'chat', text: '留言板' },
+        { name: 'Home', iconType: 'home', text: '首页', exact: true },
+        { name: 'Article', iconType: 'blog', text: '文章', exact: false }, // exact 激活状态是否啊要精确匹配
+        { name: 'About', iconType: 'info', text: '关于我', exact: true },
+        { name: 'Project', iconType: 'code', text: '项目&效果', exact: true },
+        { name: 'Message', iconType: 'chat', text: '留言板', exact: true },
       ],
     };
-  },
-  methods: {
-    isSelected(item) {
-      const pathUrl = item.url.toLowerCase();
-      const localUrl = location.pathname.toLowerCase();
-      if (item.isStartsWith) {
-        return localUrl.startsWith(pathUrl);
-      } else {
-        return pathUrl === localUrl;
-      }
-    },
   },
 };
 </script>

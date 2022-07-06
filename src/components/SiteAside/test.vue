@@ -18,6 +18,5 @@ export default {
 .siteAside-container {
   width: 200px;
   height: 600px;
-  padding: 10px 0;
 }
 </style>
