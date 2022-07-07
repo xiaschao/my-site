@@ -10,7 +10,7 @@ import styles from './showMessage.module.less';
  */
 export default function (option = {}) {
   const content = option.content || '提示消息';
-  let container = option.container;
+  const container = option.container || document.body;
   const type = option.type || 'info';
   const duration = option.duration || 2000;
 
@@ -20,12 +20,8 @@ export default function (option = {}) {
   const i = getComponentRootDom(Icon, { type });
   i.classList.add(styles.messageIcon);
   div.innerHTML = `${i.outerHTML}<span class="${styles.messageText}">${content}</span>`;
-  if (!container) {
-    container = document.body;
-  } else {
-    if (getComputedStyle(container).position === 'static') {
-      container.style.position = 'relative';
-    }
+  if (option.container && getComputedStyle(container).position === 'static') {
+    container.style.position = 'relative';
   }
   container.appendChild(div);
 
