@@ -4,6 +4,9 @@ import { router } from '@/router';
 
 Vue.config.productionTip = false;
 
+import { showMessage } from '@/utils';
+Vue.prototype.$showMessage = showMessage;
+
 new Vue({
   router,
   render: (h) => h(App),

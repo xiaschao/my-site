@@ -26,11 +26,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~@/styles/mixin.less';
 .app-container {
-  .self-fill(fixed);
   .aside {
-    height: 100%;
+    height: 100vh;
     width: 225px;
   }
 }
