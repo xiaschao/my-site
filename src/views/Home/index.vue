@@ -6,11 +6,10 @@
 </template>
 
 <script>
-import { showMessage } from '@/utils';
 export default {
   methods: {
     handleClick() {
-      showMessage({
+      this.$showMessage({
         content: '评论成功',
         container: this.$refs.container,
         type: 'success',
