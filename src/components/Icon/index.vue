@@ -39,4 +39,7 @@ export default {
 
 <style scoped>
 @import url('//at.alicdn.com/t/font_2164449_nalfgtq7il.css');
+.icon-container {
+  font-size: inherit;
+}
 </style>

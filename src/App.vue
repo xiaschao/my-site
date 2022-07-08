@@ -16,7 +16,6 @@
 <script>
 import Layout from '@/components/Layout';
 import SiteAside from '@/components/SiteAside';
-import '@/styles/global.less';
 export default {
   components: {
     Layout,
@@ -30,6 +29,10 @@ export default {
   .aside {
     height: 100vh;
     width: 225px;
+  }
+  .main {
+    height: 100vh;
+    overflow: auto;
   }
 }
 </style>

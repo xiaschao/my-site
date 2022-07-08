@@ -25,7 +25,7 @@ export default function (option = {}) {
   }
   container.appendChild(div);
 
-  div.clientHeight;
+  div.clientHeight; // 让浏览器reflow 看到动画效果
   div.style.transform = 'translate(-50%, -50%)';
   div.style.opacity = '1';
 

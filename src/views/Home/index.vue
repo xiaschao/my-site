@@ -1,31 +1,168 @@
 <template>
-  <div class="home-container" ref="container">
-    <h1>首页</h1>
-    <button @click="handleClick">点击</button>
+  <div class="home-container">
+    <ul
+      class="carousel-container"
+      :style="{ marginTop }"
+      ref="carouselContainer"
+      @wheel="handleWheel"
+      @transitionend="isMoving = false"
+    >
+      <li v-for="item in banner" :key="item.id">
+        <CarouselItem :url="item.bigImg"></CarouselItem>
+      </li>
+    </ul>
+    <div class="icon up-arrow" v-show="index > 0" @click="moveTo(index - 1)">
+      <Icon type="arrowUp" />
+    </div>
+    <div class="icon down-arrow" v-show="index < banner.length - 1" @click="moveTo(index + 1)">
+      <Icon type="arrowDown" />
+    </div>
+    <ul class="indicator">
+      <li
+        v-for="(item, i) in banner"
+        :key="item.id"
+        @click="moveTo(i)"
+        :class="{ active: index === i }"
+      ></li>
+    </ul>
   </div>
 </template>
 
 <script>
+import { getBanners } from '@/api/banner.js';
+import CarouselItem from './CarouselItem.vue';
+import Icon from '@/components/Icon';
+import { debounce } from '@/utils';
 export default {
+  components: {
+    CarouselItem,
+    Icon,
+  },
+  data() {
+    return {
+      banner: [],
+      index: 0,
+      containerHeight: 0,
+      isMoving: false, // 是否正在移动
+    };
+  },
   methods: {
-    handleClick() {
-      this.$showMessage({
-        content: '评论成功',
-        container: this.$refs.container,
-        type: 'success',
-        callback: () => {
-          console.log('触发回调函数');
-        },
-      });
+    moveTo(i) {
+      this.index = i;
     },
+    handleWheel(e) {
+      // console.log(e.deltaY);
+      if (this.isMoving) return;
+      if (e.deltaY > 10 && this.index < this.banner.length - 1) {
+        this.isMoving = true;
+        this.index += 1;
+      } else if (e.deltaY < -10 && this.index > 0) {
+        this.isMoving = true;
+        this.index -= 1;
+      }
+    },
+    handleResize() {
+      this.containerHeight = this.$refs.carouselContainer.clientHeight;
+      // console.log('change');
+    },
+  },
+  computed: {
+    marginTop() {
+      return -this.index * this.containerHeight + 'px';
+    },
+    // 返回一个防抖函数
+    debounceFn() {
+      return debounce(this.handleResize, 500);
+    },
+  },
+  async created() {
+    this.banner = await getBanners();
+  },
+  mounted() {
+    this.handleResize();
+    window.addEventListener('resize', this.debounceFn);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.debounceFn);
   },
 };
 </script>
 
 <style lang="less" scoped>
+@import '~@/styles/var.less';
+
 .home-container {
-  background-color: lightgreen;
-  width: 300px;
-  height: 400px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  .carousel-container {
+    height: 100%;
+    margin-top: 0;
+    transition: margin-top 1s;
+    li {
+      height: 100%;
+    }
+  }
+  .icon {
+    @arrowY: 25px;
+    @jumpY: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: @gray;
+    cursor: pointer;
+    &.up-arrow {
+      top: @arrowY;
+      animation: jumpUp 2s infinite;
+    }
+    &.down-arrow {
+      bottom: @arrowY;
+      animation: jumpDown 2s infinite;
+    }
+
+    @keyframes jumpUp {
+      0% {
+        transform: translateY(@jumpY);
+      }
+      50% {
+        transform: translateY(-@jumpY);
+      }
+      100% {
+        transform: translateY(@jumpY);
+      }
+    }
+    @keyframes jumpDown {
+      0% {
+        transform: translateY(-@jumpY);
+      }
+      50% {
+        transform: translateY(@jumpY);
+      }
+      100% {
+        transform: translateY(-@jumpY);
+      }
+    }
+  }
+  .indicator {
+    @size: 8px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    li {
+      background-color: @words;
+      border-radius: 50%;
+      width: @size;
+      height: @size;
+      margin: 20px 0;
+      cursor: pointer;
+      border: 1px #fff solid;
+      &.active {
+        background-color: #fff;
+        border-color: @words;
+      }
+    }
+  }
 }
 </style>
