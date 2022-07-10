@@ -8,7 +8,12 @@
       @transitionend="isMoving = false"
     >
       <li v-for="item in banner" :key="item.id">
-        <CarouselItem :url="item.bigImg"></CarouselItem>
+        <CarouselItem
+          :midImg="item.midImg"
+          :bigImg="item.bigImg"
+          :title="item.title"
+          :description="item.description"
+        ></CarouselItem>
       </li>
     </ul>
     <div class="icon up-arrow" v-show="index > 0" @click="moveTo(index - 1)">
@@ -52,7 +57,10 @@ export default {
     },
     handleWheel(e) {
       // console.log(e.deltaY);
-      if (this.isMoving) return;
+      if (this.isMoving) {
+        // console.log('正在移动中');
+        return;
+      }
       if (e.deltaY > 10 && this.index < this.banner.length - 1) {
         this.isMoving = true;
         this.index += 1;
@@ -95,10 +103,18 @@ export default {
   height: 100%;
   position: relative;
   overflow: hidden;
+
+  // 测试
+  // height: 400px;
+  // width: 600px;
+  // overflow: visible;
+  // margin: 40px auto;
+  // border: 2px red solid;
   .carousel-container {
     height: 100%;
     margin-top: 0;
-    transition: margin-top 1s;
+    // 这里有个bug， 将时间调大，在图片未加载时快速滑动滚轮
+    transition: margin-top 500ms;
     li {
       height: 100%;
     }

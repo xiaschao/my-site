@@ -1,7 +1,7 @@
 <template>
   <ul class="contact-container">
     <li class="contact-item" v-for="(item, index) in contactData" :key="index">
-      <a :href="item.url">
+      <a :href="item.url" target="_blank">
         <Icon :type="item.iconType" />
         <span>{{ item.text }}</span>
       </a>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       contactData: [
-        { url: 'https://github.com/', iconType: 'github', text: 'xiaschao' },
+        { url: 'https://github.com/xiaschao/my-site', iconType: 'github', text: 'xiaschao' },
         { url: 'mailto:xiaschao@qq.com', iconType: 'mail', text: 'xiaschao@qq.com' },
         {
           url: 'tencent://message/?Menu=yes&uin=2383027986&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45',
