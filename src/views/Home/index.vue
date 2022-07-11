@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div class="home-container" v-loading="isLoading">
     <ul
       class="carousel-container"
       :style="{ marginTop }"
@@ -7,7 +7,7 @@
       @wheel="handleWheel"
       @transitionend="isMoving = false"
     >
-      <li v-for="item in banner" :key="item.id">
+      <li v-for="item in banners" :key="item.id">
         <CarouselItem
           :midImg="item.midImg"
           :bigImg="item.bigImg"
@@ -19,12 +19,12 @@
     <div class="icon up-arrow" v-show="index > 0" @click="moveTo(index - 1)">
       <Icon type="arrowUp" />
     </div>
-    <div class="icon down-arrow" v-show="index < banner.length - 1" @click="moveTo(index + 1)">
+    <div class="icon down-arrow" v-show="index < banners.length - 1" @click="moveTo(index + 1)">
       <Icon type="arrowDown" />
     </div>
     <ul class="indicator">
       <li
-        v-for="(item, i) in banner"
+        v-for="(item, i) in banners"
         :key="item.id"
         @click="moveTo(i)"
         :class="{ active: index === i }"
@@ -38,17 +38,20 @@ import { getBanners } from '@/api/banner.js';
 import CarouselItem from './CarouselItem.vue';
 import Icon from '@/components/Icon';
 import { debounce } from '@/utils';
+import fetchData from '@/mixins/fetchData.js';
 export default {
   components: {
     CarouselItem,
     Icon,
   },
+  mixins: [fetchData([], 'banners')],
   data() {
     return {
-      banner: [],
+      // banner: [],
       index: 0,
       containerHeight: 0,
       isMoving: false, // 是否正在移动
+      // isLoading: true,
     };
   },
   methods: {
@@ -61,7 +64,7 @@ export default {
         // console.log('正在移动中');
         return;
       }
-      if (e.deltaY > 10 && this.index < this.banner.length - 1) {
+      if (e.deltaY > 10 && this.index < this.banners.length - 1) {
         this.isMoving = true;
         this.index += 1;
       } else if (e.deltaY < -10 && this.index > 0) {
@@ -82,10 +85,14 @@ export default {
     debounceFn() {
       return debounce(this.handleResize, 500);
     },
+    getData() {
+      return getBanners;
+    },
   },
-  async created() {
-    this.banner = await getBanners();
-  },
+  // async created() {
+  //   this.banner = await getBanners();
+  //   this.isLoading = false;
+  // },
   mounted() {
     this.handleResize();
     window.addEventListener('resize', this.debounceFn);

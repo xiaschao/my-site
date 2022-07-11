@@ -11,6 +11,9 @@ import { showMessage } from '@/utils';
 
 Vue.prototype.$showMessage = showMessage;
 
+import vLoading from '@/directive/loading.js';
+Vue.directive('loading', vLoading);
+
 new Vue({
   router,
   render: (h) => h(App),
