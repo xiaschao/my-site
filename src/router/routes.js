@@ -8,6 +8,7 @@ export default [
   { name: 'Home', path: '/', component: Home },
   { name: 'About', path: '/about', component: About },
   { name: 'Article', path: '/article', component: Article },
+  { name: 'ArticleCategory', path: '/article/:categoryId', component: Article },
   { name: 'Message', path: '/message', component: Message },
   { name: 'Project', path: '/project', component: Project },
 ];

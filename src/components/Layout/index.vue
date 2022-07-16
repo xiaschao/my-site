@@ -15,6 +15,7 @@
 <style lang="less" scoped>
 .layout-container {
   display: flex;
+  height: 100%;
   .left-container,
   .right-container {
     flex: 0 0 auto;

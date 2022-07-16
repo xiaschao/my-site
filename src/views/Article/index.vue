@@ -1,11 +1,32 @@
 <template>
   <div class="article-container">
-    <h1>文章</h1>
+    <Layout>
+      <BlogList></BlogList>
+      <template #right>
+        <BlogCategory />
+      </template>
+    </Layout>
   </div>
 </template>
 
 <script>
-export default {};
+import Layout from '@/components/Layout';
+import BlogList from './components/BlogList.vue';
+import BlogCategory from './components/BlogCategory.vue';
+export default {
+  components: {
+    Layout,
+    BlogList,
+    BlogCategory,
+  },
+  created() {
+    // console.log(this.$route);
+  },
+};
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.article-container {
+  height: 100%;
+}
+</style>
