@@ -1,7 +1,12 @@
 <template>
   <ul class="hierarchicalList-container">
     <li v-for="(item, i) in list" :key="i">
-      <span @click="handleClick(item)" :class="{ active: item.isSelected }">{{ item.name }}</span>
+      <div class="info" @click="handleClick(item)" :class="{ active: item.isSelected }">
+        <span>{{ item.name }}</span>
+        <span class="aside" :class="{ active: item.isSelected }" v-if="item.articleCount">
+          {{ item.articleCount }}篇
+        </span>
+      </div>
       <!-- 组件递归 -->
       <HierarchicalList :list="item.children" @select="handleClick" v-if="item.children" />
     </li>
@@ -22,7 +27,7 @@ export default {
   },
   methods: {
     handleClick(data) {
-      this.$emit('select', data);
+      if (!data.isSelected) this.$emit('select', data);
     },
   },
 };
@@ -30,6 +35,7 @@ export default {
 
 <style lang="less" scoped>
 @import '~@/styles/var.less';
+
 .hierarchicalList-container {
   .hierarchicalList-container {
     margin-left: 20px;
@@ -37,8 +43,20 @@ export default {
   li {
     min-height: 40px;
     line-height: 40px;
-    span {
+    .info {
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      .aside {
+        color: @gray;
+        margin-left: 10px;
+        font-size: 13px;
+        &.active {
+          color: @warn;
+          font-weight: bold;
+        }
+      }
       &.active {
         color: @warn;
         font-weight: bold;

@@ -7,4 +7,4 @@ export { default as debounce } from './debounce';
 // import debounce from './debounce'
 // export {debounce};
 
-export { default as formateDate } from './formateDate';
+export { default as formatDate } from './formatDate';

@@ -1,12 +1,12 @@
 <template>
   <div class="layout-container">
-    <div class="left-container">
+    <div class="left">
       <slot name="left"></slot>
     </div>
-    <div class="main-container">
+    <div class="main">
       <slot></slot>
     </div>
-    <div class="right-container">
+    <div class="right">
       <slot name="right"></slot>
     </div>
   </div>
@@ -16,12 +16,12 @@
 .layout-container {
   display: flex;
   height: 100%;
-  .left-container,
-  .right-container {
+  .left,
+  .right {
     flex: 0 0 auto;
     overflow: hidden;
   }
-  .main-container {
+  .main {
     flex: 1 1 auto;
     overflow: hidden;
   }

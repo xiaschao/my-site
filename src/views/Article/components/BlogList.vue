@@ -3,19 +3,42 @@
     <ul>
       <li v-for="item in blogListData.rows" :key="item.id">
         <div class="thumb" v-if="item.thumb">
-          <a href="">
+          <router-link
+            :to="{
+              name: 'ArticleDetail',
+              params: {
+                articleId: item.id,
+              },
+            }"
+          >
             <img :src="item.thumb" :alt="item.title" :title="item.title" />
-          </a>
+          </router-link>
         </div>
         <div class="main">
-          <a href="">
+          <router-link
+            :to="{
+              name: 'ArticleDetail',
+              params: {
+                articleId: item.id,
+              },
+            }"
+          >
             <h2>{{ item.title }}</h2>
-          </a>
+          </router-link>
           <div class="aside">
-            <span>日期：{{ formateDate(item.createDate) }}</span>
+            <span>日期：{{ formatDate(item.createDate) }}</span>
             <span>浏览：{{ item.scanNumber }}</span>
             <span>评论：{{ item.commentNumber }}</span>
-            <a href="/article/cate/8" class="">{{ item.category.name }}</a>
+            <router-link
+              :to="{
+                name: 'ArticleCategory',
+                params: {
+                  categoryId: item.category.id,
+                },
+              }"
+              class=""
+              >{{ item.category.name }}</router-link
+            >
           </div>
           <div class="desc">
             {{ item.description }}
@@ -37,7 +60,7 @@
 <script>
 import Pager from '@/components/Pager';
 import { getBlog } from '@/api/article.js';
-import { formateDate } from '@/utils/index.js';
+import { formatDate } from '@/utils/index.js';
 export default {
   components: {
     Pager,
@@ -71,7 +94,7 @@ export default {
       this.isLoading = false;
       // console.log(this.blogListData);
     },
-    formateDate,
+    formatDate,
     handlePageChange(newPage) {
       // console.log(newPage);
       const query = {
@@ -85,7 +108,7 @@ export default {
         });
       } else {
         this.$router.push({
-          name: 'Article',
+          name: 'ArticleCategory',
           query,
           params: {
             categoryId: this.routeInfo.categoryId,
@@ -113,7 +136,7 @@ export default {
   line-height: 1.7;
   position: relative;
   padding: 20px;
-  overflow-y: auto;
+  overflow-y: scroll;
   width: 100%;
   height: 100%;
   scroll-behavior: smooth;

@@ -81,12 +81,11 @@
 ## 示例
 
 ```html
-<ImageLoader 
-	src="https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?fit=crop&crop=entropy&w=3456&h=2304"
+<ImageLoader
+  src="https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?fit=crop&crop=entropy&w=3456&h=2304"
   placeholder="https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?w=100"
 />
 ```
-
 
 # SiteAside
 
@@ -96,26 +95,18 @@
 
 宽度和高度撑满外层容器
 
-
-
 # Layout
 
 使用示例：
 
 ```html
 <Layout>
-	<template #left>
-  	<div>
-      左边栏区域，宽度适应内容，溢出隐藏
-    </div>
+  <template #left>
+    <div>左边栏区域，宽度适应内容，溢出隐藏</div>
   </template>
-  <div>
-      主区域，宽度占满剩余空间，溢出隐藏
-  </div>
+  <div>主区域，宽度占满剩余空间，溢出隐藏</div>
   <template #right>
-  	<div>
-      右边栏区域，宽度适应内容，溢出隐藏
-    </div>
+    <div>右边栏区域，宽度适应内容，溢出隐藏</div>
   </template>
 </Layout>
 ```
@@ -130,3 +121,32 @@
 | left    | 左边栏     |
 | right   | 右边栏     |
 
+# MessageArea
+
+消息区域组件，可用于「评论区」和「留言板」
+
+![image-20210118140742643](http://mdrs.yuanjin.tech/img/20210118140742.png)
+
+## 属性
+
+| 属性名        | 含义               | 类型    | 必填 | 默认值 |
+| ------------- | ------------------ | ------- | ---- | ------ |
+| title         | 列表标题           | String  | 否   | ""     |
+| subTitle      | 列表副标题         | String  | 否   | ""     |
+| list          | 列表数据           | Array   | 否   | []     |
+| isListLoading | 列表是否正在加载中 | Boolean | 否   | false  |
+
+## 事件
+
+| 事件名 | 含义               | 事件参数 | 参数类型 |
+| ------ | ------------------ | -------- | -------- |
+| submit | 用户点击提交时触发 | 数据对象 | Object   |
+
+`submit`的事件参数格式为：
+
+```js
+{
+  nickname:"昵称",
+  content:"内容"
+}
+```

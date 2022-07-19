@@ -7,6 +7,7 @@ import styles from './showMessage.module.less';
  * @param {HTMLElement} container 弹出消息处于该容器中间，默认为整个页面中间
  * @param {String} type 提示类型，info,warn,error,success
  * @param {Number} duration 弹出消息多久消失
+ * @param {Function} callback 提示消息结束的回调
  */
 export default function (option = {}) {
   const content = option.content || '提示消息';
