@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="main-container" v-loading="isLoading">
+    <div class="main-container" v-loading="isLoading" ref="mainContainer">
       <BlogDetail :blogData="singleBlog" v-if="singleBlog" />
       <BlogComment v-if="!isLoading" />
     </div>
@@ -18,8 +18,10 @@ import { getSingleBlog } from '@/api/article.js';
 import BlogDetail from './components/BlogDetail.vue';
 import BlogTOC from './components/BlogTOC.vue';
 import BlogComment from './components/BlogComment.vue';
+import mainScroll from '@/mixins/mainScroll.js';
 
 export default {
+  mixins: [mainScroll()],
   components: {
     Layout,
     BlogDetail,
@@ -40,6 +42,14 @@ export default {
   },
   created() {
     this.getSingleBlogData();
+  },
+  // 本组件的更新数据只是数据加载完成之后
+  updated() {
+    const hash = location.hash;
+    location.hash = '';
+    setTimeout(() => {
+      location.hash = hash;
+    }, 50);
   },
 };
 </script>

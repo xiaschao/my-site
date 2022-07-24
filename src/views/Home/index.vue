@@ -76,14 +76,11 @@ export default {
       this.containerHeight = this.$refs.carouselContainer.clientHeight;
       // console.log('change');
     },
+    debounceHandleResize: debounce('handleResize', 500),
   },
   computed: {
     marginTop() {
       return -this.index * this.containerHeight + 'px';
-    },
-    // 返回一个防抖函数
-    debounceFn() {
-      return debounce(this.handleResize, 500);
     },
     getData() {
       return getBanners;
@@ -95,10 +92,10 @@ export default {
   // },
   mounted() {
     this.handleResize();
-    window.addEventListener('resize', this.debounceFn);
+    window.addEventListener('resize', this.debounceHandleResize);
   },
   destroyed() {
-    window.removeEventListener('resize', this.debounceFn);
+    window.removeEventListener('resize', this.debounceHandleResize);
   },
 };
 </script>

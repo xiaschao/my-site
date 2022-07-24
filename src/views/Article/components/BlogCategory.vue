@@ -25,7 +25,7 @@ export default {
       // console.log(this.blogCategoryData);
     },
     handleSelect(item) {
-      console.log(item);
+      // console.log(item);
       const query = {
         page: 1,
         limit: this.limit,

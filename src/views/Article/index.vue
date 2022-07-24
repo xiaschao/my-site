@@ -1,7 +1,7 @@
 <template>
   <div class="article-container">
     <Layout>
-      <BlogList></BlogList>
+      <BlogList />
       <template #right>
         <BlogCategory />
       </template>
@@ -18,9 +18,6 @@ export default {
     Layout,
     BlogList,
     BlogCategory,
-  },
-  created() {
-    // console.log(this.$route);
   },
 };
 </script>

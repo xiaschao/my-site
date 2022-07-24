@@ -49,9 +49,6 @@ export default {
         transform: `translate(${left}px, ${top}px)`,
       };
     },
-    debounceFn() {
-      return debounce(this.getSize, 500);
-    },
     centerPos() {
       return {
         centerX: this.containerSize.width / 2,
@@ -79,6 +76,7 @@ export default {
       // console.log(this.containerSize);
       // console.log(this.innerSize);
     },
+    debounceGetSize: debounce('getSize', 500),
     handleMousemove(e) {
       const rect = this.$refs.container.getBoundingClientRect();
       this.mouserX = e.clientX - rect.left;
@@ -98,10 +96,10 @@ export default {
     this.mouserX = this.centerPos.centerX;
     this.mouserY = this.centerPos.centerY;
     // 监听视口变化，重新赋值
-    window.addEventListener('resize', this.debounceFn);
+    window.addEventListener('resize', this.debounceGetSize);
   },
   destroyed() {
-    window.removeEventListener('resize', this.debounceFn);
+    window.removeEventListener('resize', this.debounceGetSize);
   },
 };
 </script>

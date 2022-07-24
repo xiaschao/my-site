@@ -33,7 +33,7 @@ Mock.mock(/^\/api\/blog(\?.+)?$/, 'get', (options) => {
           },
           'scanNumber|0-3000': 0,
           'commentNumber|0-300': 30,
-          'thumb|1': [Mock.Random.image('300x250', '#000', '#fff', 'Random Image'), null],
+          'thumb|1': ['@image( 300x250 ,@color, #fff, @natural)'],
           createDate: `@date('T')`,
         },
       ],
@@ -294,7 +294,7 @@ Mock.mock(/^\/api\/comment\/?(\?.+)?$/, 'get', function (options) {
     code: 0,
     msg: '',
     data: {
-      'total|50-200': 0,
+      total: 33,
       [`rows|${query.limit || 10}`]: [
         {
           id: '@guid',

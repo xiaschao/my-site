@@ -6,6 +6,8 @@
       :subTitle="`(${commentData.total})`"
       :list="commentData.rows"
       @submit="handleSubmit"
+      :isListLoading="isLoading"
+      :hasMore="isHasMore"
     ></MessageArea>
   </div>
 </template>
@@ -19,11 +21,11 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       commentData: {
         total: 0,
         rows: [],
       },
-      isLoading: true,
       page: 1,
       limit: 10,
     };
@@ -43,14 +45,37 @@ export default {
       this.commentData.total++;
       callback('提交成功');
     },
+    async loadMore() {
+      if (!this.isHasMore) return;
+      this.isLoading = true;
+      this.page++;
+      const data = await getComments(this.blogId, this.page, this.limit);
+      this.total = data.total;
+      this.commentData.rows = this.commentData.rows.concat(data.rows);
+      this.isLoading = false;
+    },
+    handleMainScroll(dom) {
+      if (this.isLoading || !dom) return;
+      const range = 100;
+      const dec = Math.abs(dom.scrollTop + dom.clientHeight - dom.scrollHeight);
+      if (dec <= range) this.loadMore();
+    },
   },
   computed: {
     blogId() {
       return this.$route.params.articleId;
     },
+    isHasMore() {
+      return this.commentData.rows.length < this.commentData.total;
+    },
   },
   created() {
     this.getCommentData();
+    // window.loadMore = this.loadMore;
+    this.$bus.$on('mainScroll', this.handleMainScroll);
+  },
+  destroyed() {
+    this.$bus.$off('mainScroll', this.handleMainScroll);
   },
 };
 </script>
@@ -58,6 +83,7 @@ export default {
 <style lang="less" scoped>
 #blogComment-container {
   margin-top: 40px;
+  position: relative;
   h3 {
     margin-bottom: 30px;
   }

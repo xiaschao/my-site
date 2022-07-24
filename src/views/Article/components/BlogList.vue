@@ -11,7 +11,7 @@
               },
             }"
           >
-            <img :src="item.thumb" :alt="item.title" :title="item.title" />
+            <img v-lazy="item.thumb" :alt="item.title" :title="item.title" />
           </router-link>
         </div>
         <div class="main">
@@ -61,7 +61,9 @@
 import Pager from '@/components/Pager';
 import { getBlog } from '@/api/article.js';
 import { formatDate } from '@/utils/index.js';
+import mainScroll from '@/mixins/mainScroll.js';
 export default {
+  mixins: [mainScroll('container')],
   components: {
     Pager,
   },
