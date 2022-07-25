@@ -34,17 +34,15 @@
 </template>
 
 <script>
-import { getBanners } from '@/api/banner.js';
 import CarouselItem from './CarouselItem.vue';
 import Icon from '@/components/Icon';
 import { debounce } from '@/utils';
-import fetchData from '@/mixins/fetchData.js';
+import { mapState } from 'vuex';
 export default {
   components: {
     CarouselItem,
     Icon,
   },
-  mixins: [fetchData([], 'banners')],
   data() {
     return {
       // banner: [],
@@ -82,14 +80,14 @@ export default {
     marginTop() {
       return -this.index * this.containerHeight + 'px';
     },
-    getData() {
-      return getBanners;
-    },
+    ...mapState('banner', {
+      banners: (state) => state.data,
+      isLoading: (state) => state.loading,
+    }),
   },
-  // async created() {
-  //   this.banner = await getBanners();
-  //   this.isLoading = false;
-  // },
+  created() {
+    this.$store.dispatch('banner/fetchGetBanners');
+  },
   mounted() {
     this.handleResize();
     window.addEventListener('resize', this.debounceHandleResize);

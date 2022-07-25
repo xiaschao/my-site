@@ -1,5 +1,6 @@
 import './banner';
 import './article';
+import './setting';
 
 import Mock from 'mockjs';
 

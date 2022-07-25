@@ -14,26 +14,33 @@
 
 <script>
 import Icon from '@/components/Icon';
-import qqercode from '@/assets/qqercode.png';
-import weixincode from '@/assets/weixinercode.png';
+import { mapState } from 'vuex';
 export default {
   components: {
     Icon,
   },
-  data() {
-    return {
-      contactData: [
-        { url: 'https://github.com/xiaschao/my-site', iconType: 'github', text: 'xiaschao' },
-        { url: 'mailto:xiaschao@qq.com', iconType: 'mail', text: 'xiaschao@qq.com' },
+
+  computed: {
+    ...mapState('setting', ['data']),
+    contactData() {
+      const vuexData = this.data;
+      return [
+        { url: vuexData.github, iconType: 'github', text: vuexData.githubName },
+        { url: vuexData.mail, iconType: 'mail', text: 'xiaschao@qq.com' },
         {
-          url: 'tencent://message/?Menu=yes&uin=2383027986&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45',
+          url: `tencent://message/?Menu=yes&uin=${vuexData.qq}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45`,
           iconType: 'qq',
-          text: '2383027986',
-          qrCode: weixincode,
+          text: vuexData.qq,
+          qrCode: vuexData.qqQrCode,
         },
-        { url: 'javascript:;', iconType: 'weixin', text: 'xiaschao', qrCode: qqercode },
-      ],
-    };
+        {
+          url: 'javascript:;',
+          iconType: 'weixin',
+          text: vuexData.weixin,
+          qrCode: vuexData.weixinQrCode,
+        },
+      ];
+    },
   },
 };
 </script>

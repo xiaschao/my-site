@@ -19,6 +19,7 @@ import BlogDetail from './components/BlogDetail.vue';
 import BlogTOC from './components/BlogTOC.vue';
 import BlogComment from './components/BlogComment.vue';
 import mainScroll from '@/mixins/mainScroll.js';
+import { setFullTitle } from '@/utils';
 
 export default {
   mixins: [mainScroll()],
@@ -38,6 +39,7 @@ export default {
     async getSingleBlogData() {
       this.singleBlog = await getSingleBlog(this.$route.params.articleId);
       this.isLoading = false;
+      this.singleBlog.title && setFullTitle.setRouterTitle(this.singleBlog.title);
     },
   },
   created() {

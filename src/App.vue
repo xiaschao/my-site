@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" v-if="data">
     <Layout>
       <template #left>
         <div class="aside">
@@ -18,12 +18,14 @@
 import Layout from '@/components/Layout';
 import SiteAside from '@/components/SiteAside';
 import ToTop from '@/components/ToTop';
+import { mapState } from 'vuex';
 export default {
   components: {
     Layout,
     SiteAside,
     ToTop,
   },
+  computed: mapState('setting', ['data']),
 };
 </script>
 
