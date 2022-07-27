@@ -3,6 +3,7 @@ import './article';
 import './setting';
 import './about';
 import './project';
+import './message';
 
 import Mock from 'mockjs';
 
