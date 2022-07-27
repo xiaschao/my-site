@@ -1,11 +1,39 @@
 <template>
-  <div class="about-container">
-    <h1>关于我</h1>
+  <div class="about-container" v-loading="isLoading || !srcLoaded">
+    <iframe :src="aboutUrl" frameborder="0" class="content" @load="srcLoaded = true"></iframe>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from 'vuex';
+export default {
+  data() {
+    return {
+      srcLoaded: false,
+    };
+  },
+  computed: {
+    ...mapState('about', {
+      aboutUrl: 'data',
+      isLoading: 'loading',
+    }),
+  },
+  created() {
+    this.$store.dispatch('about/fetchGetAbout');
+  },
+};
 </script>
 
-<style></style>
+<style scoped>
+.about-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: block;
+}
+</style>
