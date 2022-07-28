@@ -1,15 +1,41 @@
-import Home from '@/views/Home';
-import About from '@/views/About';
-import Article from '@/views/Article';
-import Message from '@/views/Message';
-import Project from '@/views/Project';
-import Detail from '@/views/Article/Detail.vue';
+import 'nprogress/nprogress.css';
+import { start, done, configure } from 'nprogress';
+import NotFound from '@/views/NotFound.vue';
+
+// nprogress配置
+configure({
+  trickleSpeed: 20,
+  showSpinner: false,
+});
+
+function delay(duration) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
+
+function handleAsyncCompoent(fn) {
+  return async () => {
+    // console.log('组件开始加载');
+    start();
+    if (process.env.NODE_ENV === 'development') {
+      await delay(2000);
+    }
+    const comp = await fn();
+    // console.log('组件加载结束');
+    done();
+    return comp; // 返回该异步组件
+  };
+}
 
 export default [
+  { path: '/index', redirect: { name: 'Home' } },
   {
     name: 'Home',
     path: '/',
-    component: Home,
+    component: handleAsyncCompoent(() => import(/* webpackChunkName: "home" */ '@/views/Home')),
     meta: {
       title: '首页',
     },
@@ -17,7 +43,7 @@ export default [
   {
     name: 'About',
     path: '/about',
-    component: About,
+    component: handleAsyncCompoent(() => import(/* webpackChunkName: "About" */ '@/views/About')),
     meta: {
       title: '关于我',
     },
@@ -25,7 +51,9 @@ export default [
   {
     name: 'Article',
     path: '/article',
-    component: Article,
+    component: handleAsyncCompoent(() =>
+      import(/* webpackChunkName: "Article" */ '@/views/Article')
+    ),
     meta: {
       title: '文章',
     },
@@ -33,12 +61,16 @@ export default [
   {
     name: 'ArticleCategory',
     path: '/article/cate/:categoryId',
-    component: Article,
+    component: handleAsyncCompoent(() =>
+      import(/* webpackChunkName: "ArticleCategory" */ '@/views/Article')
+    ),
   },
   {
     name: 'ArticleDetail',
     path: '/article/detail/:articleId',
-    component: Detail,
+    component: handleAsyncCompoent(() =>
+      import(/* webpackChunkName: "ArticleDetail" */ '@/views/Article/Detail')
+    ),
     meta: {
       title: '文章',
     },
@@ -46,7 +78,9 @@ export default [
   {
     name: 'Message',
     path: '/message',
-    component: Message,
+    component: handleAsyncCompoent(() =>
+      import(/* webpackChunkName: "Message" */ '@/views/Message')
+    ),
     meta: {
       title: '留言板',
     },
@@ -54,9 +88,12 @@ export default [
   {
     name: 'Project',
     path: '/project',
-    component: Project,
+    component: handleAsyncCompoent(() =>
+      import(/* webpackChunkName: "Project" */ '@/views/Project')
+    ),
     meta: {
       title: '项目&效果',
     },
   },
+  { name: 'NotFound', path: '*', component: NotFound },
 ];

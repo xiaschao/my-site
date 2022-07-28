@@ -38,6 +38,10 @@ export default {
   methods: {
     async getSingleBlogData() {
       this.singleBlog = await getSingleBlog(this.$route.params.articleId);
+      if (!this.singleBlog) {
+        this.$router.push('/404');
+        return;
+      }
       this.isLoading = false;
       this.singleBlog.title && setFullTitle.setRouterTitle(this.singleBlog.title);
     },

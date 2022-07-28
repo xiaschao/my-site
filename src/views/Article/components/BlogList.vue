@@ -46,6 +46,7 @@
         </div>
       </li>
     </ul>
+    <Empty v-if="blogListData.rows.length === 0 && !isLoading"></Empty>
     <!-- 分页放到这里 -->
     <Pager
       v-if="blogListData.total"
@@ -62,14 +63,19 @@ import Pager from '@/components/Pager';
 import { getBlog } from '@/api/article.js';
 import { formatDate } from '@/utils/index.js';
 import mainScroll from '@/mixins/mainScroll.js';
+import Empty from '@/components/Empty';
 export default {
   mixins: [mainScroll('container')],
   components: {
     Pager,
+    Empty,
   },
   data() {
     return {
-      blogListData: {},
+      blogListData: {
+        total: 0,
+        rows: [],
+      },
       isLoading: true,
     };
   },

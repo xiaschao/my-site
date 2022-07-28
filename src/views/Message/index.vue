@@ -37,7 +37,7 @@ export default {
     async getData() {
       this.messageData = await getMessages(this.page, this.limit);
       this.isLoading = false;
-      console.log(this.messageData);
+      // console.log(this.messageData);
     },
     async handleSubmit(data, callback) {
       const resp = await postMessage({

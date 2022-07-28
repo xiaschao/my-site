@@ -21,13 +21,18 @@
         </ul>
       </div>
     </li>
+    <li id="empty"><Empty v-if="projectData.length === 0 && !isLoading"></Empty></li>
   </ul>
 </template>
 
 <script>
 import { getProjects } from '@/api/project.js';
 import mainScroll from '@/mixins/mainScroll.js';
+import Empty from '@/components/Empty';
 export default {
+  components: {
+    Empty,
+  },
   mixins: [mainScroll()],
   data() {
     return {
@@ -69,6 +74,7 @@ export default {
   overflow-y: auto;
   padding: 10px 30px;
   scroll-behavior: smooth;
+  position: relative;
   a {
     cursor: pointer;
   }
@@ -120,5 +126,8 @@ export default {
       }
     }
   }
+}
+#empty {
+  height: 100%;
 }
 </style>

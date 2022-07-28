@@ -3,7 +3,9 @@ import VueRouter from 'vue-router';
 import routes from './routes.js';
 import { setFullTitle } from '@/utils';
 
-Vue.use(VueRouter);
+if (!window.VueRouter) {
+  Vue.use(VueRouter);
+}
 
 const router = new VueRouter({
   routes, //路由匹配规则
