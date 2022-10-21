@@ -67,7 +67,7 @@ export default {
       const arr = [];
       const addToDoms = (toc) => {
         for (const item of toc) {
-          arr.push(document.querySelector('#' + item.anchor));
+          arr.push(document.getElementById(item.anchor));
           // console.log(item.anchor);
           if (item.children && item.children.length > 0) {
             addToDoms(item.children);
@@ -75,7 +75,6 @@ export default {
         }
       };
       addToDoms(this.TOCData);
-      // console.log(arr);
       return arr;
     },
   },

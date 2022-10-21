@@ -116,7 +116,7 @@ export default {
     height: 100%;
     margin-top: 0;
     // 这里有个bug， 将时间调大，在图片未加载时快速滑动滚轮
-    transition: margin-top 500ms;
+    transition: margin-top 1s;
     li {
       height: 100%;
     }

@@ -1,6 +1,6 @@
 import debounce from '../utils/debounce';
 import eventBus from '@/eventBus.js';
-import defaultImg from '@/assets/lazysucai.gif';
+import defaultImg from '@/assets/lazysucai.webp';
 
 let imgsArr = [];
 

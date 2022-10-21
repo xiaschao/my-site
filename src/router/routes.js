@@ -43,7 +43,9 @@ export default [
   {
     name: 'About',
     path: '/about',
-    component: handleAsyncCompoent(() => import(/* webpackChunkName: "About" */ '@/views/About')),
+    component: handleAsyncCompoent(() =>
+      import(/* webpackChunkName: "About" */ '@/views/About/temp.vue')
+    ),
     meta: {
       title: '关于我',
     },

@@ -6,7 +6,7 @@ import store from '@/store';
 import '@/styles/global.less';
 import './eventBus';
 
-import '@/mock';
+// import '@/mock';
 
 Vue.config.productionTip = false;
 

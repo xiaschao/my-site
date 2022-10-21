@@ -78,7 +78,10 @@ Mock.mock(/^\/api\/blog\/[^/]+$/, 'get', {
         anchor: 'article-md-title-7',
       },
     ],
-    'thumb|1': [Mock.Random.image('300x250', '#000', '#fff', 'Random Image'), null],
+    'thumb|1': [
+      Mock.Random.image('300x250', '#000', '#fff', 'Random Image'),
+      null,
+    ],
     htmlContent: `<blockquote>
   <p>阅读本文，你需要首先知道：</p><ol>
   <li>浏览器的同源策略</li>

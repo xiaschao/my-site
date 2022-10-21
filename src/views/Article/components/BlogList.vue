@@ -30,6 +30,7 @@
             <span>浏览：{{ item.scanNumber }}</span>
             <span>评论：{{ item.commentNumber }}</span>
             <router-link
+              v-if="item.category"
               :to="{
                 name: 'ArticleCategory',
                 params: {
@@ -39,6 +40,7 @@
               class=""
               >{{ item.category.name }}</router-link
             >
+            <span v-else>暂无分类</span>
           </div>
           <div class="desc">
             {{ item.description }}

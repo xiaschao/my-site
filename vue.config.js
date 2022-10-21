@@ -3,7 +3,10 @@ module.exports = {
     open: true,
     proxy: {
       '/api': {
-        target: 'https://study.duyiedu.com',
+        target: 'http://localhost:7001',
+      },
+      '/static': {
+        target: 'http://localhost:7001',
       },
     },
   },
