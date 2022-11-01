@@ -61,13 +61,13 @@
 </template>
 
 <script>
-import Pager from '@/components/Pager';
-import { getBlog } from '@/api/article.js';
-import { formatDate } from '@/utils/index.js';
-import mainScroll from '@/mixins/mainScroll.js';
-import Empty from '@/components/Empty';
+import Pager from "@/components/Pager";
+import { getBlog } from "@/api/article.js";
+import { formatDate } from "@/utils/index.js";
+import mainScroll from "@/mixins/mainScroll.js";
+import Empty from "@/components/Empty";
 export default {
-  mixins: [mainScroll('container')],
+  mixins: [mainScroll("container")],
   components: {
     Pager,
     Empty,
@@ -113,12 +113,12 @@ export default {
       };
       if (this.routeInfo.categoryId === -1) {
         this.$router.push({
-          name: 'Article',
+          name: "Article",
           query,
         });
       } else {
         this.$router.push({
-          name: 'ArticleCategory',
+          name: "ArticleCategory",
           query,
           params: {
             categoryId: this.routeInfo.categoryId,
@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import '~@/styles/var.less';
+@import "~@/styles/var.less";
 .blogList-container {
   line-height: 1.7;
   position: relative;
