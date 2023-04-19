@@ -4,8 +4,8 @@
       <!-- 介绍 -->
       <div class="header-introduce">
         <div class="header-introduce-name">
-          <h1>张三</h1>
-          <span>Java工程师</span>
+          <h1>某泽</h1>
+          <span>gou叫大师</span>
         </div>
         <div class="header-introduce-item">
           <i class="iconfont icondianhua"></i>
@@ -24,7 +24,7 @@
       </div>
       <!-- 头像 -->
       <div class="header-avatar">
-        <img src="@/assets/hsq.webp" alt="" />
+        <img src="@/assets/hsq.jpg" alt="" />
       </div>
     </div>
 

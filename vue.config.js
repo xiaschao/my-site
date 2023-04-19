@@ -2,13 +2,13 @@ module.exports = {
   devServer: {
     open: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:7001',
+      "/api": {
+        target: "http://localhost:7001",
       },
-      '/static': {
-        target: 'http://localhost:7001',
+      "/static": {
+        target: "http://localhost:7001",
       },
     },
   },
-  configureWebpack: require('./webpack.config'),
+  configureWebpack: require("./webpack.config"),
 };
